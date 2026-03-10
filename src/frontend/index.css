@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0.11 0.028 252;
+    --foreground: 0.94 0.012 240;
+    --card: 0.16 0.03 250;
+    --card-foreground: 0.94 0.012 240;
+    --popover: 0.19 0.032 250;
+    --popover-foreground: 0.94 0.012 240;
+    --primary: 0.60 0.23 240;
+    --primary-foreground: 0.99 0.003 240;
+    --secondary: 0.21 0.03 250;
+    --secondary-foreground: 0.82 0.02 240;
+    --muted: 0.20 0.028 250;
+    --muted-foreground: 0.57 0.032 240;
+    --accent: 0.70 0.17 196;
+    --accent-foreground: 0.11 0.028 252;
+    --destructive: 0.52 0.22 25;
+    --destructive-foreground: 0.99 0.003 25;
+    --border: 0.26 0.038 250;
+    --input: 0.20 0.028 250;
+    --ring: 0.60 0.23 240;
+    --radius: 0.875rem;
+    --chart-1: 0.60 0.23 240;
+    --chart-2: 0.70 0.17 196;
+    --chart-3: 0.72 0.18 145;
+    --chart-4: 0.65 0.21 305;
+    --chart-5: 0.62 0.20 40;
+    --sidebar: 0.09 0.025 252;
+    --sidebar-foreground: 0.94 0.012 240;
+    --sidebar-primary: 0.60 0.23 240;
+    --sidebar-primary-foreground: 0.99 0.003 240;
+    --sidebar-accent: 0.70 0.17 196;
+    --sidebar-accent-foreground: 0.11 0.028 252;
+    --sidebar-border: 0.26 0.038 250;
+    --sidebar-ring: 0.60 0.23 240;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Sora', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-image:
+      radial-gradient(
+        ellipse 80% 50% at 50% -20%,
+        oklch(0.60 0.23 240 / 0.12),
+        transparent
+      );
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: oklch(var(--card) / 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid oklch(var(--border) / 0.8);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 28px oklch(var(--primary) / 0.35), 0 4px 12px oklch(0 0 0 / 0.4);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px oklch(var(--accent) / 0.3);
+  }
+
+  .input-field {
+    @apply bg-muted border border-border rounded-xl px-4 py-3 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/60 transition-all w-full;
+  }
+
+  .status-step-active {
+    @apply bg-primary text-primary-foreground;
+    box-shadow: 0 0 12px oklch(var(--primary) / 0.5);
+  }
+
+  .status-step-done {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  .ride-card-selected {
+    border-color: oklch(var(--primary));
+    box-shadow: 0 0 20px oklch(var(--primary) / 0.3), inset 0 0 20px oklch(var(--primary) / 0.05);
+  }
+}
+
+@keyframes carMove {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+@keyframes ping-slow {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes dash-flow {
+  to { stroke-dashoffset: -20; }
+}
+
+.dash-animated {
+  stroke-dasharray: 8 6;
+  animation: dash-flow 0.8s linear infinite;
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, oklch(var(--primary)), oklch(var(--accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* AI badge shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.ai-badge {
+  background: linear-gradient(
+    90deg,
+    oklch(var(--primary)),
+    oklch(var(--accent)),
+    oklch(var(--primary))
+  );
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--border));
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--muted-foreground));
+}
